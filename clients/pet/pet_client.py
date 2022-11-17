@@ -1,16 +1,16 @@
-from json import dumps
+import json
 from uuid import uuid4
 
-from clients.people.base_client import BaseClient
-from config import BASE_URI
+from clients.base_client import BaseClient
+from config import PET_URI
 from utils.request import APIRequest
 
 
-class PeopleClient(BaseClient):
+class PetClient(BaseClient):
     def __init__(self):
         super().__init__()
 
-        self.base_url = BASE_URI
+        self.base_url = PET_URI
         self.request = APIRequest()
 
     def create_person(self, body=None):
@@ -31,15 +31,19 @@ class PeopleClient(BaseClient):
         response = self.request.post(self.base_url, payload, self.headers)
         return last_name, response
 
-    def read_one_person_by_id(self, person_id):
-        pass
+    def get_pet_by_id(self, pet_id):
+        url = f'{self.base_url}/{pet_id}'
+        return self.request.get(url)
 
-    def read_all_persons(self):
-        return self.request.get(self.base_url)
+    def get_pets_by_status(self, status_name):
+        url = f'{self.base_url}/findByStatus'
+        params = {'status': status_name}
+        return self.request.get(url=url, params=params)
 
-    def update_person(self):
-        pass
+    def update_pet(self, payload):
+        url = f'{self.base_url}'
+        return self.request.put(url=url, payload=json.dumps(payload), headers=self.headers)
 
-    def delete_person(self, person_id):
-        url = f'{BASE_URI}/{person_id}'
-        return self.request.delete(url)
+    def delete_pet(self, pet_id):
+        url = f'{self.base_url}/{pet_id}'
+        return self.request.delete(url=url)

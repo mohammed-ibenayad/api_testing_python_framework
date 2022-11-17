@@ -1,2 +1,2 @@
-BASE_URI = 'http://0.0.0.0:5000/api/people'
-COVID_TRACKER_HOST = 'http://127.0.0.1:3000'
+SERVER_BASE_URI = 'https://petstore.swagger.io/v2'
+PET_URI = f'{SERVER_BASE_URI}/pet'

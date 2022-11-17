@@ -12,12 +12,16 @@ class Response:
 
 
 class APIRequest:
-    def get(self, url):
-        response = requests.get(url)
+    def get(self, url, params=None):
+        response = requests.get(url, params=params)
         return self.__get_responses(response)
 
     def post(self, url, payload, headers):
         response = requests.post(url, data=payload, headers=headers)
+        return self.__get_responses(response)
+
+    def put(self, url, payload, headers):
+        response = requests.put(url, data=payload, headers=headers)
         return self.__get_responses(response)
 
     def delete(self, url):
